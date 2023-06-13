@@ -2,47 +2,53 @@ import os
 from pprint import pprint
 import inquirer
 import json
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium import *
-from lxml import etree
-import lxml
+import requests
+import lxml.html
 
-root_destination = "C:/Users/fadia/Documents/LEO/SHOWS/"
-possible_shows = os.listdir(root_destination)
-possible_shows.append("not one of these")
+# def show():
+#     root_destination = "C:/Users/fadia/Documents/LEO/SHOWS/"
+#     possible_shows = os.listdir(root_destination)
+#     possible_shows.append("not one of these")
+#     questions = [
+#         inquirer.List(
+#             "show",
+#             message="What show do you want to watch?",
+#             choices=possible_shows,
+#         ),
+#     ]
+#     answers = inquirer.prompt(questions)
+#     return answers["show"]
 
-def show():
+def search():
+    search = input('What do you want to watch ? \n')
+
+    r = requests.post("https://anime-sama.fr/catalogue/searchbar.php", {
+        "query": search
+    })
+    tree = lxml.html.fromstring(r.text)
+    title_elem = tree.xpath('//div[@class="px-4 py-2"]/h1')
+    link_elem = tree.xpath('//img/@src')
+    # el = {"title":tree.xpath('//h3')[0].text_content(), "link":link_elem[0]}
+    results = {}
+    for i in range(len(title_elem)):
+        link = link_elem[i].split('https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/')
+        results[title_elem[i].text_content()] = link[1].split(".jpg")[0]
     questions = [
         inquirer.List(
             "show",
             message="What show do you want to watch?",
-            choices=possible_shows,
+            choices=results,
         ),
     ]
     answers = inquirer.prompt(questions)
-    return answers["show"]
+    list = [answers['show'], results[answers['show']]]
+    # print(list)
 
-def search():
-    search = input('What do you want to watch so ? \n')
-
-    f = open('shows.json', 'r+')
-    data = json.load(f)
-    if search in data:
-        list = [[data[search], search]]
-    else:
-        new = input('go to anime-sama.fr and then search the anime you want to watch and paste it there \n')
-        data[search] = new
-        list = [[new, search]]
-        with open('shows.json', 'r+') as jsonFile:
-            json.dump(data, jsonFile)
-        # obj = {search: new}
-        # json_obj = json.dumps(obj, indent=1)
-        # list = [obj[search]]
-        # f.update(json_obj)
+    # with open('shows.json', 'r+') as file:
+    #     data = json.load(file)
+    #     data[list[0]] = list[1]
+    #     print(data)
+    #     json.dump(data, file)
 
     # op = webdriver.ChromeOptions()
     # op.add_argument('headless')
