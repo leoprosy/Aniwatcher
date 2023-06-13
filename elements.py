@@ -1,19 +1,10 @@
 import os
 import chooseShow
 import downloadEpisode
-import json
 
 
 def show():
-    # if list == 'not one of these':
-    #     list = chooseShow.search()
-    #     show = chooseShow.title(list)
-    # else:
-    #     with open('shows.json', 'r+') as jsonFile:
-    #         data = json.load(jsonFile)
-    #         show = [data[list], list]
     show = chooseShow.search()
-    # show = chooseShow.title(list)
     return show
 
 def season(show):

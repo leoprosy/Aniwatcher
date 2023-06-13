@@ -1,10 +1,5 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 import requests
 from tqdm import tqdm
-import os
-import time
 
 def getLink(show, season, episode):
     url = f"https://anime-sama.fr/catalogue/{show[1]}/saison{season}/vostfr/episodes.js"
@@ -35,7 +30,6 @@ def download(url, root_destination, show, season, episode):
     if url == "error":
         return
     r = requests.get(url, stream=True)
-    # open(f"{root_destination}/{show[1]}/saison{season}/{episode}.mp4", "wb").write(r.content)
     total_size_in_bytes = int(r.headers.get('Content-Length', 0))
     progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
     with open(f"{root_destination}/{show[0]}/saison{season}/{episode}.mp4", 'wb') as file:
