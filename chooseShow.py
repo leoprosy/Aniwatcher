@@ -1,9 +1,10 @@
 import inquirer
 import requests
 import lxml.html
+from visual import *
 
 def search():
-    search = input('What do you want to watch ? \n')
+    search = input(f'\n{IN}What do you want to watch ? ')
 
     r = requests.post("https://anime-sama.fr/catalogue/searchbar.php", {
         "query": search
@@ -16,6 +17,7 @@ def search():
     for i in range(len(title_elem)):
         link = link_elem[i].split('https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/')
         results[title_elem[i].text_content()] = link[1].split(".jpg")[0]
+    print('\n')
     questions = [
         inquirer.List(
             "show",
