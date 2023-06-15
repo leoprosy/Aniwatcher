@@ -11,27 +11,23 @@ def player(videoSource, episode, show):
             root.attributes('-fullscreen', False)
         else:
             root.attributes('-fullscreen', True)
-    
     def unfull(event):
-        root.attributes('-fullscreen', False)
-            
+        root.attributes('-fullscreen', False)            
     def pause(event):
         if p.is_playing():
             p.set_pause(1)
         else: 
             p.play()
-    
-    def right(event):
+    def forward(event):
         p.set_time(p.get_time()+15*1000)
-    
-    def left(event):
+    def backward(event):
         p.set_time(p.get_time()-15*1000)
     
     root.bind("<Key-f>", full)
     root.bind("<Escape>", unfull)
     root.bind('<space>', pause)
-    root.bind('<Right>', right)
-    root.bind('<Left>', left)
+    root.bind('<Right>', forward)
+    root.bind('<Left>', backward)
 
     instance=vlc.Instance()
     p=instance.media_player_new()

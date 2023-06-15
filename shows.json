@@ -1,1 +1,12 @@
-{"Naruto Shippuden": "naruto-shippuden", "Rick & Morty": "rick-et-morty", "Tengoku daimakyou": "tengoku-daimakyou", "JoJo's Bizarre Adventure": "jojos-bizarre-adventure"}
+{
+    "Naruto Shippuden": {
+        "link": "naruto-shippuden",
+        "history": {
+            "episode 1 season 1": {
+                "date": "06/14/2023",
+                "time": "17:23"
+            }
+        }
+    }, "Rick & Morty": {
+        "link": "rick-et-morty"
+    }, "Tengoku daimakyou": "tengoku-daimakyou", "JoJo's Bizarre Adventure": "jojos-bizarre-adventure"}
