@@ -30,6 +30,6 @@ def search():
     
     return list
 
-def title(list):
-    answers = list[0]
-    return answers
+# def title(list):
+#     answers = list[0]
+#     return answers
