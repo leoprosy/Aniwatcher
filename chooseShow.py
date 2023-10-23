@@ -3,8 +3,9 @@ import requests
 import lxml.html
 from visual import *
 
-def search():
-    search = input(f'\n{IN}What do you want to watch ? ')
+def search(search=False):
+    if not search:
+        search = input(f'\n{IN}What do you want to watch ? ')
 
     r = requests.post("https://anime-sama.fr/catalogue/searchbar.php", {
         "query": search
@@ -29,7 +30,3 @@ def search():
     list = [answers['show'], results[answers['show']]]
     
     return list
-
-# def title(list):
-#     answers = list[0]
-#     return answers
