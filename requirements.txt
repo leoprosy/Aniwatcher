@@ -1,0 +1,8 @@
+inquirer
+colorama
+requests
+lxml
+tqdm
+python-vlc
+tk
+python-time

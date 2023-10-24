@@ -1,6 +1,11 @@
-import vlc
-from tkinter import *
-from time import *
+import setup
+
+try:
+    import vlc
+    from tkinter import *
+    from time import *
+except:
+    setup.install_depedencies()
 
 def player(videoSource, episode, show):
     root=Tk(className=f"{show[0]} - Episode {str(episode)}")
